@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Line } from "react-chartjs-2";
 import {
@@ -44,23 +44,41 @@ const FeedbackSliderWithFunFacts = () => {
       {
         label: "Student Growth (%)",
         data: [0, 20, 45, 70, 100],
-        borderColor: "#007BFF",
-        backgroundColor: "rgba(0, 123, 255, 0.2)",
-        pointRadius: 6,
-        pointBackgroundColor: "#007BFF",
+        borderColor: "#3498db", // A more appealing blue
+        backgroundColor: "rgba(52, 152, 219, 0.2)", // Lighter shade for fill
+        pointRadius: 7, // Slightly larger points
+        pointBackgroundColor: "#3498db",
         pointBorderColor: "#fff",
         fill: true,
+        tension: 0.3, // Adds a smooth curve to the line
       },
     ],
   };
 
   const growthOptions = {
     responsive: true,
+    maintainAspectRatio: false, // Allows the chart to fill its container
     plugins: {
       legend: {
         display: true,
+        position: "bottom", // More modern placement
+        labels: {
+          font: {
+            size: 12,
+          },
+          color: "#555",
+        },
       },
       tooltip: {
+        backgroundColor: "rgba(0,0,0,0.8)", // Darker tooltip
+        titleColor: "#fff",
+        bodyColor: "#eee",
+        titleFont: {
+          size: 14,
+        },
+        bodyFont: {
+          size: 12,
+        },
         callbacks: {
           label: function (context) {
             const achievements = [
@@ -78,6 +96,20 @@ const FeedbackSliderWithFunFacts = () => {
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: "rgba(0, 0, 0, 0.05)", // Lighter grid lines
+        },
+        ticks: {
+          color: "#666",
+        },
+      },
+      x: {
+        grid: {
+          color: "rgba(0, 0, 0, 0.05)",
+        },
+        ticks: {
+          color: "#666",
+        },
       },
     },
   };
@@ -101,9 +133,11 @@ const FeedbackSliderWithFunFacts = () => {
         >
           <h3 style={styles.chartTitle}>📈 Student Growth Over Time</h3>
           <p style={styles.chartDescription}>
-            Our students show consistent improvement as they progress through classes.
+            Our students show consistent improvement as they progress through
+            classes.
           </p>
-          <div style={{ height: "250px" }}>
+          <div style={styles.chartWrapper}>
+            {/* Ensure chart fills the wrapper */}
             <Line data={growthData} options={growthOptions} />
           </div>
         </motion.div>
@@ -128,13 +162,14 @@ const FeedbackSliderWithFunFacts = () => {
 
 const styles = {
   container: {
-    background: "#ffffff", // Changed from yellow to white
+    background: "#f5f5f5", // A soft, modern background
     color: "#333",
     padding: "80px 20px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     minHeight: "100vh",
+    fontFamily: " 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", // Modern font
   },
   innerContainer: {
     display: "grid",
@@ -145,21 +180,27 @@ const styles = {
     alignItems: "center",
   },
   chartContainer: {
-    background: "#f9f9f9",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    background: "#fff", // Clean white background for the chart
+    padding: "30px", // Increased padding
+    borderRadius: "15px", // Softer rounded corners
+    boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.08)", // Subtle shadow
   },
   chartTitle: {
-    fontSize: "20px",
-    fontWeight: "bold",
+    fontSize: "24px", // Slightly larger title
+    fontWeight: "600", // Semi-bold
     textAlign: "center",
-    marginBottom: "10px",
+    marginBottom: "15px",
+    color: "#2c3e50", // Darker, professional color
   },
   chartDescription: {
-    color: "#555",
+    color: "#777", // Softer text color
     textAlign: "center",
-    marginBottom: "20px",
+    marginBottom: "25px",
+    fontSize: "16px",
+  },
+  chartWrapper: {
+    height: "300px", // Fixed height for the chart
+    position: "relative", // Required for absolute positioning of the chart
   },
   photoContainer: {
     display: "flex",
@@ -169,8 +210,12 @@ const styles = {
   studentPhoto: {
     width: "100%",
     maxWidth: "400px",
-    borderRadius: "10px",
-    boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+    borderRadius: "12px", // Slightly more rounded
+    boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.12)", // More pronounced shadow
+    transition: "transform 0.3s ease-in-out", // Add transition
+    "&:hover": {
+      transform: "scale(1.05)", // Slight scale on hover
+    },
   },
 };
 

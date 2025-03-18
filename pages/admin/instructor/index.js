@@ -6,25 +6,17 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import axios from "axios";
 import baseUrl from "@/utils/baseUrl";
-import { parseCookies } from "nookies";
 import GeneralLoader from "@/utils/GeneralLoader";
 import InstructorRow from "@/components/Admin/InstructorRow";
 
 const Index = ({ user }) => {
-	const { elarniv_users_token } = parseCookies();
 	const [instructors, setInstructors] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const fetchData = async () => {
 		setLoading(true);
 		try {
-			const payload = {
-				headers: { Authorization: elarniv_users_token },
-			};
-			const response = await axios.get(
-				`${baseUrl}/api/instructor/instructors`,
-				payload
-			);
+			const response = await axios.get(`${baseUrl}/api/instructors`);
 			setInstructors(response.data.instructors);
 			setLoading(false);
 		} catch (err) {
@@ -53,6 +45,78 @@ const Index = ({ user }) => {
 		fetchData();
 	}, []);
 
+	const handleApprove = async (instructorId) => {
+		try {
+			const url = `${baseUrl}/api/instructors/approve/${instructorId}`;
+			const response = await axios.put(url);
+			toast.success(response.data.message, {
+				style: {
+					border: "1px solid #4BB543",
+					padding: "16px",
+					color: "#4BB543",
+				},
+				iconTheme: {
+					primary: "#4BB543",
+					secondary: "#FFFAEE",
+				},
+			});
+			fetchData(); // Refresh data after approval
+		} catch (err) {
+			let {
+				response: {
+					data: { message },
+				},
+			} = err;
+			toast.error(message, {
+				style: {
+					border: "1px solid #ff0033",
+					padding: "16px",
+					color: "#ff0033",
+				},
+				iconTheme: {
+					primary: "#ff0033",
+					secondary: "#FFFAEE",
+				},
+			});
+		}
+	};
+
+	const handleDeny = async (instructorId) => {
+		try {
+			const url = `${baseUrl}/api/instructors/deny/${instructorId}`;
+			const response = await axios.delete(url);
+			toast.success(response.data.message, {
+				style: {
+					border: "1px solid #4BB543",
+					padding: "16px",
+					color: "#4BB543",
+				},
+				iconTheme: {
+					primary: "#4BB543",
+					secondary: "#FFFAEE",
+				},
+			});
+			fetchData(); // Refresh data after denial
+		} catch (err) {
+			let {
+				response: {
+					data: { message },
+				},
+			} = err;
+			toast.error(message, {
+				style: {
+					border: "1px solid #ff0033",
+					padding: "16px",
+					color: "#ff0033",
+				},
+				iconTheme: {
+					primary: "#ff0033",
+					secondary: "#FFFAEE",
+				},
+			});
+		}
+	};
+
 	return (
 		<>
 			<Navbar user={user} />
@@ -66,20 +130,20 @@ const Index = ({ user }) => {
 
 						<div className="col-lg-9 col-md-8">
 							<div className="main-content-box">
+								{/* Nav */}
 								<ul className="nav-style1">
 									<li>
-										<Link href="/admin/instructor/">
-											<a className="active">
-												Instructors
-											</a>
+										<Link href="/admin/instructors/">
+											<a className="active">Instructors</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/admin/instructor/requests/">
-											<a>Requests</a>
+										<Link href="/admin/instructor/create/">
+											<a>Create</a>
 										</Link>
 									</li>
 								</ul>
+
 								{loading ? (
 									<GeneralLoader />
 								) : (
@@ -91,22 +155,21 @@ const Index = ({ user }) => {
 													<th scope="col">Email</th>
 													<th scope="col">Phone</th>
 													<th scope="col">Subject</th>
-													<th scope="col">Text</th>
+													<th scope="col">Description</th>
 													<th scope="col">Status</th>
+													<th scope="col">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
 												{instructors.length > 0 ? (
-													instructors.map(
-														(instructor) => (
-															<InstructorRow
-																key={
-																	instructor.id
-																}
-																{...instructor}
-															/>
-														)
-													)
+													instructors.map((instructor) => (
+														<InstructorRow
+															key={instructor.id}
+															{...instructor}
+															onApprove={handleApprove}
+															onDeny={handleDeny}
+														/>
+													))
 												) : (
 													<tr>
 														<td

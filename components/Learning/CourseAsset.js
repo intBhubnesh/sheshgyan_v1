@@ -2,17 +2,23 @@ import baseUrl from "@/utils/baseUrl";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const CourseAsset = ({ id: courseId, vertical = false, onAssetSelect }) => { // Added onAssetSelect prop
+const CourseAsset = ({ id: courseId, vertical = false, onAssetSelect }) => {
     const [assets, setAssets] = useState([]);
+    const [currentAssetIndex, setCurrentAssetIndex] = useState(0); // Track current asset index
+    const [loading, setLoading] = useState(true); // Add loading state
 
     useEffect(() => {
         const fetchAssets = async () => {
+            setLoading(true); // Set loading to true before fetching
             const url = `${baseUrl}/api/assets/${courseId}`;
             try {
                 const response = await axios.get(url);
                 setAssets(response.data.assets);
             } catch (error) {
                 console.error("Error fetching assets:", error);
+                // Consider setting an error state here to display an error message to the user
+            } finally {
+                setLoading(false); // Set loading to false after fetching, whether success or error
             }
         };
 
@@ -29,6 +35,18 @@ const CourseAsset = ({ id: courseId, vertical = false, onAssetSelect }) => { // 
         }
     };
 
+    // Navigation functions
+    const handleNextAsset = () => {
+        if (currentAssetIndex < assets.length - 1) {
+            setCurrentAssetIndex(currentAssetIndex + 1);
+        }
+    };
+
+    const handlePreviousAsset = () => {
+        if (currentAssetIndex > 0) {
+            setCurrentAssetIndex(currentAssetIndex - 1);
+        }
+    };
 
     return (
         <div className="course-assets">
@@ -40,63 +58,67 @@ const CourseAsset = ({ id: courseId, vertical = false, onAssetSelect }) => { // 
                     <h4 className="card-title mb-0">Course Resources</h4>
                 </div>
 
-                <div className={`asset-list ${vertical ? 'vertical' : 'horizontal'}`}>
-                    {assets.length > 0 ? (
-                        assets.map((asset) => (
-                            <div className="asset-item" key={asset.id}>
-                                <div className="card asset-card h-100 border-0 shadow-sm rounded-lg">
-                                    <div className="card-body text-center">
-                                        <i
-                                            className="bx bxs-file-doc bx-md mb-3"
-                                            style={{ fontSize: '3rem', color: '#5e72e4' }}
-                                        ></i>
-                                        <h6 className="card-title font-weight-bold">{asset.lecture_name}</h6>
-                                        <p className="text-muted mb-3">Click the asset to view.</p>
-                                        <button
-                                            className="btn btn-primary mt-3"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                handleAssetClick(asset);
-                                            }}
-                                        >
-                                            View Asset
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <div className="col-12 text-center">
-                            <p className="text-muted">No resources available for this course yet.</p>
+                {loading ? (
+                    <div className="text-center">Loading resources...</div>
+                ) : assets.length > 0 ? (
+                    <div className="asset-display text-center">
+                        {/* Display current asset */}
+                        {assets[currentAssetIndex].type === 'image' ? (
+                            <img
+                                src={assets[currentAssetIndex].lecture_file}
+                                alt={assets[currentAssetIndex].lecture_name}
+                                className="img-fluid mb-3"
+                            />
+                        ) : (
+                            <p>Preview not available for this asset type.</p>
+                        )}
+                        <h6 className="font-weight-bold">{assets[currentAssetIndex].lecture_name}</h6>
+                        <p className="text-muted mb-3">Click the button below to view.</p>
+
+                        <button
+                            className="btn btn-primary mt-3"
+                            onClick={() => handleAssetClick(assets[currentAssetIndex])}
+                        >
+                            View Asset
+                        </button>
+
+                        {/* Navigation buttons */}
+                        <div className="navigation-buttons mt-3">
+                            <button
+                                className="btn btn-secondary mr-2"
+                                onClick={handlePreviousAsset}
+                                disabled={currentAssetIndex === 0}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="btn btn-secondary"
+                                onClick={handleNextAsset}
+                                disabled={currentAssetIndex === assets.length - 1}
+                            >
+                                Next
+                            </button>
                         </div>
-                    )}
-                </div>
+                         {/* Asset Counter */}
+                         <p className="mt-2 text-muted">
+                            Asset {currentAssetIndex + 1} of {assets.length}
+                        </p>
+                    </div>
+                ) : (
+                    <div className="col-12 text-center">
+                        <p className="text-muted">No resources available for this course yet.</p>
+                    </div>
+                )}
             </div>
 
             <style jsx>{`
-				.asset-list {
-					display: flex;
-					flex-direction: ${vertical ? 'column' : 'row'};
-					gap: ${vertical ? '20px' : '30px'};
-				}
-
-				.asset-item {
-					width: ${vertical ? '100%' : 'auto'};
-				}
-
-				.asset-card {
-					background-color: #ffffff;
+				.asset-display img {
+					max-width: 100%;
 					border-radius: 10px;
-					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-					padding: 20px;
-					text-align: center;
-					transform: translateY(0);
-					transition: transform 0.2s ease-in-out;
 				}
 
-				.asset-card:hover {
-					transform: translateY(-5px);
-					box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+				.navigation-buttons button {
+					margin: 5px;
 				}
 
 				.btn-primary {
@@ -111,6 +133,16 @@ const CourseAsset = ({ id: courseId, vertical = false, onAssetSelect }) => { // 
 
 				.btn-primary:hover {
 					background-color: #42529f;
+				}
+
+				.btn-secondary {
+					background-color: #6c757d;
+					color: white;
+					border-radius: 5px;
+				}
+
+				.btn-secondary:hover {
+					background-color: #5a6268;
 				}
 			`}</style>
         </div>

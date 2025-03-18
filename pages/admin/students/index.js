@@ -114,9 +114,7 @@ const Index = ({ user }) => {
 										</Link>
 									</li>
 									<li>
-										<Link href="/admin/students/site-admins/">
-											<a>Admins</a>
-										</Link>
+										
 									</li>
 								</ul>
 								{loading ? (

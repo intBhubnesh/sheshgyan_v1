@@ -73,7 +73,7 @@ const UploadVideoForm = ({ courseId }) => {
 			setThumbPreview(window.URL.createObjectURL(files[0]));
 		} else if (name === "video") {
 			fileSize = files[0].size / 1024 / 1024;
-			if (fileSize > 5) {
+			if (fileSize > 55) {
 				toast.error(
 					"The video size greater than 5 MB. Make sure less than 5 MB.",
 					{
@@ -357,6 +357,8 @@ const UploadVideoForm = ({ courseId }) => {
 				</div>
 			</div>
 		</form>
+
+		
 	);
 };
 

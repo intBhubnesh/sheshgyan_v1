@@ -19,10 +19,12 @@ const MainBanner = ({ user, courses }) => {
 							<motion.div whileTap={{ scale: 1.1 }}>
 								{user ? (
 									<Link href="/courses">
-										<a className="default-btn" style={styles.button}>
-											<i className="flaticon-user"></i> Explore Courses <span></span>
-										</a>
-									</Link>
+									<a className="default-btn" style={styles.button}>
+										<i className="flaticon-user" style={{ marginRight: '8px' }}></i> {/* Add margin here */}
+										Explore Courses <span></span>
+									</a>
+								</Link>
+								
 								) : (
 									<Link href="/authentication">
 										<a className="default-btn" style={styles.button}>

@@ -149,12 +149,9 @@ const CourseUpdateForm = ({ courseData }) => {
         if (course.image) {
             response = await axios.post(process.env.CLOUDINARY_URL, data);
         }
-        const imageUrl = response.data.url;
-
-        return imageUrl;
+        const imageUrl = response.data.url; return imageUrl;
     };
-
-    const handleSubmit = async (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
@@ -279,13 +276,33 @@ const CourseUpdateForm = ({ courseData }) => {
         // Hide the UploadVideoForm
         setShowAddAssetForm(false);
     };
-    const handleQuizUploadComplete = (newQuiz) => {
+    const handleQuizUploadComplete = async (quizData) => {
         // Add the newly uploaded video to the addedVideos state
-        setAddedQuizzes([...addedQuizzes, newQuiz]);
+        // setAddedQuizzes([...addedQuizzes, newQuiz]);
+        const courseId = courseData.id;
+        try {
+            // Read existing quizzes from quiz.json
+            const response = await axios.get('/api/quizzes');
+            const existingQuizzes = response.data;
+
+            // Add the new quiz data to the existing quizzes with courseId as the key
+            existingQuizzes[courseId] = quizData;
+
+            // Write the updated quizzes back to quiz.json
+            await axios.post('/api/quizzes', existingQuizzes);
+
+            setAddedQuizzes([quizData]); //HERE
+            toast.success('Quizzes uploaded successfully!');
+        } catch (error) {
+            console.error('Error saving quizzes:', error);
+            toast.error('Failed to upload quizzes.');
+        }
+
 
         // Hide the UploadVideoForm
         setShowUploadQuizForm(false);
     };
+
 
     const handleDeleteVideo = (videoId) => {
         // Filter out the video with the matching videoId
@@ -298,286 +315,513 @@ const CourseUpdateForm = ({ courseData }) => {
         const updatedAssets = addedAssets.filter((asset) => asset.id !== assetId);
         setAddedAssets(updatedAssets);
     };
+    const QuizForm = ({ onQuizUploadComplete, courseId }) => {
+        const [questions, setQuestions] = useState([{
+            questionText: "",
+            questionImage: null, // New: Question image
+            questionImagePreview: null, // New: Question image preview
+            options: [
+                { text: "", image: null, imagePreview: null, isCorrect: false }, //New image field
+                { text: "", image: null, imagePreview: null, isCorrect: false },
+                { text: "", image: null, imagePreview: null, isCorrect: false },
+                { text: "", image: null, imagePreview: null, isCorrect: false }
+            ],
+        }]);
 
-    return (
-        <div className="container mt-5">
-            <div className="mb-4 d-flex justify-content-between align-items-center">
-                <h1>Edit Course</h1>
-                <Link href="/instructor/courses" className="btn btn-secondary">
-                    Back to Courses
-                </Link>
-            </div>
+        const handleAddQuestion = () => {
+            setQuestions([
+                ...questions,
+                {
+                    questionText: "",
+                    questionImage: null,
+                    questionImagePreview: null,
+                    options: [
+                        { text: "", image: null, imagePreview: null, isCorrect: false },
+                        { text: "", image: null, imagePreview: null, isCorrect: false },
+                        { text: "", image: null, imagePreview: null, isCorrect: false },
+                        { text: "", image: null, imagePreview: null, isCorrect: false }
+                    ],
+                },
+            ]);
+        };
 
-            <div className="card shadow-sm">
-                <div className="card-body p-5">
-                    <form onSubmit={handleSubmit}>
-                        <div className="row g-3">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Course Title</label>
+        const handleQuestionChange = (index, event) => {
+            const newQuestions = [...questions];
+            newQuestions[index].questionText = event.target.value;
+            setQuestions(newQuestions);
+        };
+
+        const handleQuestionImageChange = (index, event) => {
+            const { files } = event.target;
+            if (files && files[0]) {
+                const newQuestions = [...questions];
+                newQuestions[index].questionImage = files[0];
+                newQuestions[index].questionImagePreview = URL.createObjectURL(files[0]);
+                setQuestions(newQuestions);
+            }
+        };
+
+        const handleOptionChange = (questionIndex, optionIndex, event) => {
+            const newQuestions = [...questions];
+            newQuestions[questionIndex].options[optionIndex].text = event.target.value;
+            setQuestions(newQuestions);
+        };
+
+        const handleOptionImageChange = (questionIndex, optionIndex, event) => {
+            const { files } = event.target;
+            if (files && files[0]) {
+                const newQuestions = [...questions];
+                newQuestions[questionIndex].options[optionIndex].image = files[0];
+                newQuestions[questionIndex].options[optionIndex].imagePreview = URL.createObjectURL(files[0]);
+                setQuestions(newQuestions);
+            }
+        };
+
+        const handleCorrectAnswerChange = (questionIndex, optionIndex) => {
+            const newQuestions = [...questions];
+            newQuestions[questionIndex].options = newQuestions[questionIndex].options.map((option, index) => ({
+                ...option,
+                isCorrect: index === optionIndex,
+            }));
+            setQuestions(newQuestions);
+        };
+
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+
+            // Function to upload image and return URL
+            const uploadImage = async (imageFile) => {
+                if (!imageFile) return null;
+                const data = new FormData();
+                data.append("file", imageFile);
+                data.append("upload_preset", process.env.UPLOAD_PRESETS);
+                data.append("cloud_name", process.env.CLOUD_NAME);
+                const response = await axios.post(process.env.CLOUDINARY_URL, data);
+                return response.data.url;
+            };
+
+            // Upload images and create quiz data
+            const quizData = await Promise.all(
+                questions.map(async (question) => {
+                    const questionImageUrl = await uploadImage(question.questionImage);
+                    const optionsWithImageUrls = await Promise.all(
+                        question.options.map(async (option) => {
+                            const optionImageUrl = await uploadImage(option.image);
+                            return { ...option, image: optionImageUrl };
+                        })
+                    );
+
+                    return {
+                        questionText: question.questionText,
+                        questionImage: questionImageUrl,
+                        options: optionsWithImageUrls,
+                    };
+                })
+            );
+
+            // Call the callback function with the quiz data
+            onQuizUploadComplete(quizData, courseId);
+        };
+
+        return (
+            <form onSubmit={handleSubmit}>
+                {questions.map((question, questionIndex) => (
+                    <div key={questionIndex} className="mb-4">
+                        <h4 className="mb-3">Question {questionIndex + 1}</h4>
+
+                        {/* Question Text Input */}
+                        <div className="mb-3">
+                            <label className="form-label">Question Text</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={question.questionText}
+                                onChange={(event) => handleQuestionChange(questionIndex, event)}
+                            />
+                        </div>
+
+                        {/* Question Image Upload */}
+                        <div className="mb-3">
+                            <label className="form-label">Question Image</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                accept="image/*"
+                                onChange={(event) => handleQuestionImageChange(questionIndex, event)}
+                            />
+                            {question.questionImagePreview && (
+                                <img
+                                    src={question.questionImagePreview}
+                                    alt="Question Preview"
+                                    style={{ maxWidth: "100px", marginTop: "10px" }}
+                                />
+                            )}
+                        </div>
+
+                        {/* Options */}
+                        {question.options.map((option, optionIndex) => (
+                            <div key={optionIndex} className="mb-3">
+                                <div className="form-check">
                                     <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Course Title"
-                                        name="title"
-                                        value={course.title}
-                                        onChange={handleChange}
+                                        className="form-check-input"
+                                        type="radio"
+                                        name={`question-${questionIndex}`}
+                                        id={`question-${questionIndex}-option-${optionIndex}`}
+                                        checked={option.isCorrect}
+                                        onChange={() => handleCorrectAnswerChange(questionIndex, optionIndex)}
                                     />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Lessons</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="5"
-                                        name="lessons"
-                                        value={course.lessons}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Latest Price</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="20"
-                                        name="latest_price"
-                                        value={course.latest_price}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Before Price</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="30"
-                                        name="before_price"
-                                        value={course.before_price}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Duration</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="4 Hours or 2 Weeks"
-                                        name="duration"
-                                        value={course.duration}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Access Time</label>
-                                    <select
-                                        className="form-select"
-                                        name="access_time"
-                                        value={course.access_time}
-                                        onChange={handleChange}
+                                    <label
+                                        className="form-check-label"
+                                        htmlFor={`question-${questionIndex}-option-${optionIndex}`}
                                     >
-                                        <option value="">Select</option>
-                                        <option value="Lifetime">Lifetime</option>
-                                        <option value="Three Months">Three Months</option>
-                                        <option value="Six Months">Six Months</option>
-                                        <option value="1 Year">1 Year</option>
-                                    </select>
+                                        Correct Answer
+                                    </label>
                                 </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Course Image</label>
+                                <div className="mb-2">
+                                    <label className="form-label">Option {optionIndex + 1} Text</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={option.text}
+                                        onChange={(event) => handleOptionChange(questionIndex, optionIndex, event)}
+                                    />
+                                </div>
+                                {/* Option Image Upload */}
+                                <div className="mb-3">
+                                    <label className="form-label">Option {optionIndex + 1} Image</label>
                                     <input
                                         type="file"
-                                        className="form-control file-control"
-                                        name="image"
-                                        onChange={handleChange}
+                                        className="form-control"
+                                        accept="image/*"
+                                        onChange={(event) => handleOptionImageChange(questionIndex, optionIndex, event)}
                                     />
-                                    <div className="form-text">Upload image size 750x500!</div>
+                                    {option.imagePreview && (
+                                        <img
+                                            src={option.imagePreview}
+                                            alt={`Option ${optionIndex + 1} Preview`}
+                                            style={{ maxWidth: "100px", marginTop: "10px" }}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))}
 
-                                    <div className="mt-2">
-                                        {imagePreview ? (
+                <button type="button" className="btn btn-secondary" onClick={handleAddQuestion}>
+                    Add Question
+                </button>
+                <button type="submit" className="btn btn-primary">
+                    Upload Quizzes
+                </button>
+            </form>
+        );
+    };
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <div className="row">
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>Course Title</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="title"
+                                value={course.title}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>Short Description</label>
+                            <textarea
+                                name="short_desc"
+                                className="form-control"
+                                cols="30"
+                                rows="3"
+                                value={course.short_desc}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>Course Overview</label>
+                            <RichTextEditor
+                                controls={controls}
+                                value={course.overview}
+                                onChange={(e) =>
+                                    setCourse((prevState) => ({
+                                        ...prevState,
+                                        overview: e,
+                                    }))
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Latest Price</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="latest_price"
+                                value={course.latest_price}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Before Price</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="before_price"
+                                value={course.before_price}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Lessons</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="lessons"
+                                value={course.lessons}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Duration</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="duration"
+                                value={course.duration}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Access Time</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="access_time"
+                                value={course.access_time}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Category</label>
+                            <select
+                                className="form-select"
+                                name="catId"
+                                value={course.catId}
+                                onChange={handleChange}
+                            >
+                                <option value="0">Select A Category</option>
+                                {categories.map((cat) => (
+                                    <option value={cat.id} key={cat.id}>
+                                        {cat.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>Requirements</label>
+                            <RichTextEditor
+                                controls={controls}
+                                value={course.requirements}
+                                onChange={(e) =>
+                                    setCourse((prevState) => ({
+                                        ...prevState,
+                                        requirements: e,
+                                    }))
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>What You Will Learn</label>
+
+                            <RichTextEditor
+                                controls={controls}
+                                value={course.what_you_will_learn}
+                                onChange={(e) =>
+                                    setCourse((prevState) => ({
+                                        ...prevState,
+                                        what_you_will_learn: e,
+                                    }))
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <div className="form-group">
+                            <label>Who is this course for</label>
+                            <RichTextEditor
+                                controls={controls}
+                                value={course.who_is_this_course_for}
+                                onChange={(e) =>
+                                    setCourse((prevState) => ({
+                                        ...prevState,
+                                        who_is_this_course_for: e,
+                                    }))
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="form-group">
+                            <label>Course Image</label>
+                            <input
+                                type="file"
+                                className="form-control-file"
+                                name="image"
+                                onChange={handleChange}
+                                accept="image/*"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="preview-image">
+                            <img
+                                src={imagePreview ? imagePreview : course.image}
+                                alt="image"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                        <button
+                            type="submit"
+                            className="default-btn"
+                            disabled={disabled}
+                        >
+                            Update Course <span></span>
+                            {loading ? <LoadingSpinner /> : ""}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <h2>Add Content</h2>
+                <select value={selectedOption} onChange={handleSelectChange}>
+                    <option value="">Select an option</option>
+                    <option value="uploadVideo">Upload Video</option>
+                    <option value="assets">Add Assets</option>
+                    <option value="quizzes">Add Quizzes</option>
+                </select>
+
+                {showUploadVideoForm && (
+                    <UploadVideoForm
+                        courseId={courseData.id}
+                        onVideoUploadComplete={handleVideoUploadComplete}
+                    />
+                )}
+                {showAddAssetForm && (
+                    <AddAssetForm
+                        courseId={courseData.id}
+                        onAssetUploadComplete={handleAssetUploadComplete}
+                    />
+                )}
+                {showUploadQuizForm && (
+                    <QuizForm
+                        courseId={courseData.id}
+                        onQuizUploadComplete={handleQuizUploadComplete}
+                    />
+                )}
+            </div>
+            <div>
+                <h2>Added Videos</h2>
+                {addedVideos.length === 0 ? (
+                    <p>No videos added yet.</p>
+                ) : (
+                    <CourseVideos videos={addedVideos} onDelete={handleDeleteVideo} />
+                )}
+            </div>
+            <div>
+                <h2>Added Assets</h2>
+                {addedAssets.length === 0 ? (
+                    <p>No assets added yet.</p>
+                ) : (
+                    <CourseAssets assets={addedAssets} onDelete={handleDeleteAsset} />
+                )}
+            </div>
+            <div>
+    <h2>Added Quizzes</h2>
+    {addedQuizzes.length === 0 ? (
+        <p>No quizzes added yet.</p>
+    ) : (
+        addedQuizzes.map((quiz, index) => ( // Map through the quizzes array
+            <div key={index}>
+                <h3>Quiz {index + 1}</h3>
+                {Array.isArray(quiz) ? ( // Check if quiz is an array before mapping
+                    quiz.map((question, qIndex) => (
+                        <div key={qIndex}>
+                            <p>Question: {question.questionText}</p>
+                            {question.questionImage && (
+                                <img
+                                    src={question.questionImage}
+                                    alt="Question Image"
+                                    style={{ maxWidth: '100px' }}
+                                />
+                            )}
+                            <ul>
+                                {question.options.map((option, oIndex) => (
+                                    <li key={oIndex}>
+                                        {option.text}
+                                        {option.image && (
                                             <img
-                                                src={imagePreview}
-                                                alt="Image Preview"
-                                                style={{ maxWidth: "100px" }}
-                                            />
-                                        ) : (
-                                            <img
-                                                src={course.image}
-                                                alt="Image Preview"
-                                                style={{ maxWidth: "100px" }}
+                                                src={option.image}
+                                                alt="Option Image"
+                                                style={{ maxWidth: '50px' }}
                                             />
                                         )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Categories</label>
-                                    <select
-                                        className="form-select"
-                                        name="catId"
-                                        value={course.catId}
-                                        onChange={handleChange}
-                                    >
-                                        <option value="">Select</option>
-                                        {categories.map((cat) => (
-                                            <option key={cat.id} value={cat.id}>
-                                                {cat.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Short Description</label>
-                                    <textarea
-                                        className="form-control"
-                                        rows="3"
-                                        placeholder="Short Description"
-                                        name="short_desc"
-                                        value={course.short_desc}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Overview</label>
-
-                                    <RichTextEditor
-                                        controls={controls}
-                                        value={course.overview}
-                                        onChange={(e) => setCourse((prevState) => ({ ...prevState, overview: e }))}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Requirements</label>
-
-                                    <RichTextEditor
-                                        controls={controls}
-                                        value={course.requirements}
-                                        onChange={(e) => setCourse((prevState) => ({ ...prevState, requirements: e }))}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">What You Will Learn</label>
-                                    <RichTextEditor
-                                        controls={controls}
-                                        value={course.what_you_will_learn}
-                                        onChange={(e) => setCourse((prevState) => ({ ...prevState, what_you_will_learn: e }))}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label className="form-label fw-semibold">Who is this course for</label>
-                                    <RichTextEditor
-                                        controls={controls}
-                                        value={course.who_is_this_course_for}
-                                        onChange={(e) => setCourse((prevState) => ({ ...prevState, who_is_this_course_for: e }))}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-12">
-                                <button type="submit" className="btn btn-primary" disabled={disabled || loading}>
-                                    {loading ? <LoadingSpinner /> : "Update Course"}
-                                </button>
-                            </div>
+                                        ({option.isCorrect ? 'Correct' : 'Incorrect'})
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    </form>
-                </div>
+                    ))
+                ) : (
+                    <div>
+                        <p>Invalid quiz format.</p>
+                    </div>
+                )}
             </div>
-            <div className="card shadow-sm mt-4">
-                <div className="card-body p-5">
-                    <h2>Add Course Content</h2>
-                    <div className="mb-3">
-                        <label className="form-label fw-semibold">Select Content Type:</label>
-                        <select className="form-select" value={selectedOption} onChange={handleSelectChange}>
-                            <option value="">Select an option</option>
-                            <option value="uploadVideo">Upload Video</option>
-                            <option value="assets">Add Assets</option>
-                            <option value="quizzes">Add Quizzes</option>
-                        </select>
-                    </div>
+        ))
+    )}
+</div>
 
-                    {showUploadVideoForm && (
-                        <UploadVideoForm courseId={courseData.id} onUploadComplete={handleVideoUploadComplete} />
-                    )}
-
-                    {showAddAssetForm && (
-                        <AddAssetForm courseId={courseData.id} onUploadComplete={handleAssetUploadComplete} />
-                    )}
-
-                    {showUploadQuizForm && (
-                        <UploadQuizForm courseId={courseData.id} onUploadComplete={handleQuizUploadComplete} />
-                    )}
-                </div>
-            </div>
-            {/* Display Added Videos */}
-            {addedVideos.length > 0 && (
-                <div className="card shadow-sm mt-4">
-                    <div className="card-body p-5">
-                        <h2>Added Videos</h2>
-                        <div className="row">
-                            {addedVideos.map((video) => (
-                                <CourseVideos
-                                    key={video.id}
-                                    {...video}
-                                    onDelete={handleDeleteVideo}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-            {/* Display Added Assets */}
-            {addedAssets.length > 0 && (
-                <div className="card shadow-sm mt-4">
-                    <div className="card-body p-5">
-                        <h2>Added Assets</h2>
-                        <div className="row">
-                            {addedAssets.map((asset) => (
-                                <CourseAssets
-                                    key={asset.id}
-                                    {...asset}
-                                    onDelete={handleDeleteAsset}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-        </div>
+        </>
     );
 };
 
