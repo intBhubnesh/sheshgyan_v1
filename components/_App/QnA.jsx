@@ -26,7 +26,7 @@ import TailwindWrapper from './TailwindWrapper';
                                 className="flex items-center justify-between px-4 py-0 cursor-pointer sm:p-7"
                                 onClick={() => toggleAnswer(index)}
                             >
-                                <h2 className="sub-heading text-[#505050] text-[17px] sm:text-4xl font-medium leading-[62px] tracking-[-0.72px] font-[Tusker Grotesk]">
+                                <h2 className="sub-heading text-[#505050] sm:text-3xl text-lg font-medium leading-[62px] tracking-[-0.72px] font-[Tusker Grotesk]">
                                     {QnA.Question}
                                 </h2>
                                 <div className="transition-transform duration-500 transform">
@@ -42,7 +42,7 @@ import TailwindWrapper from './TailwindWrapper';
                                 </div>
                             </div>
                             {openIndex === index && (
-                                <p className="text-[#616161]/80 para text-base sm:text-2xl font-medium sm:leading-[40px] tracking-[-0.96px] font-[Manrope] self-stretch p-4 sm:p-7 transition-opacity duration-500 ease-in-out opacity-100">
+                                <p className="text-[#616161]/80 para text-base sm:text-lg font-medium sm:leading-[24px] tracking-[-0.96px] font-[Manrope] self-stretch p-4 sm:p-7 transition-opacity duration-500 ease-in-out opacity-100">
                                     {QnA.Answer}
                                 </p>
                             )}

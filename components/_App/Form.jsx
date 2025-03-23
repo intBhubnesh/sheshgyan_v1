@@ -164,7 +164,7 @@ const Form = () => {
                             </div>
 
                         </form>
-                        <button className='px-6 mt-2 p-4 inline-flex items-center justify-center text-xl uppercase tracking-wide text-white rounded-full bg-[#FF6200]'> <h1 className="heading" >Request Demo</h1> </button>
+                        <button className='px-6 mt-2 p-4 sub-heading inline-flex items-center justify-center text-xl uppercase tracking-wide  rounded-full bg-[#FF6200]'> <h1 className="text-white sub-heading" >Send</h1> </button>
 
                     </div>
                 </div>
