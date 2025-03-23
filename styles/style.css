@@ -54,6 +54,49 @@ This files table contents are outlined below>>>>>
 /*================================================
 Default CSS
 =================================================*/
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+/* Your existing CSS below */
+
+  @font-face {
+    font-family: 'TuskerGrotesk';
+    src: url('/fonts/TuskerGrotesk-3600Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'TuskerGrotesk';
+    src: url('/fonts/TuskerGrotesk-5500Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+
+  .heading {
+    font-family: 'TuskerGrotesk', sans-serif;
+    font-weight: 600; /* Matches the 3600Semibold */
+  }
+  .sub-heading {
+    font-family: 'TuskerGrotesk', sans-serif;
+    font-weight: 500; /* Matches the 5500Medium */
+  }
+.para {
+  font-family: 'Manrope', sans-serif;
+}
+
+@keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 15s linear infinite;
+  }
 
 
 body {

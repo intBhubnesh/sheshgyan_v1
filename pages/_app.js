@@ -1,3 +1,5 @@
+// _app.js
+import "../styles/tailwind.css";
 import React from "react";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
@@ -16,25 +18,28 @@ import "swiper/css/bundle";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "@etchteam/next-pagination/dist/index.css";
 import "react-loading-skeleton/dist/skeleton.css";
-// Global Styles
 import "../styles/style.css";
 import "../styles/responsive.css";
-
-// Dashboard
 import "../styles/dashboard.css";
 
-// see-demo-account
-// import "../styles/see-demo-account.css";
-
 import Layout from "../components/_App/Layout";
+import LandingLayout from "../components/_App/LandingLayout"; // Import the new layout
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
 	const store = useStore(pageProps.initialReduxState);
+
+	// Define the routes that should use the LandingLayout
+	const landingPageRoutes = ["/", "/about", "/contact"]; // Add your landing page routes here
+
+	// Determine which layout to use based on the route
+	const isLandingPage = landingPageRoutes.includes(router.pathname);
+	const AppLayout = isLandingPage ? LandingLayout : Layout;
+
 	return (
 		<Provider store={store}>
-			<Layout>
+			<AppLayout>
 				<Component {...pageProps} />
-			</Layout>
+			</AppLayout>
 		</Provider>
 	);
 }
@@ -48,7 +53,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 	}
 
 	if (!elarniv_users_token) {
-		// if a user not logged in then user can't access those pages
 		const isProtectedRoute =
 			ctx.pathname === "/profile/basic-information" ||
 			ctx.pathname === "/profile/photo" ||
@@ -69,7 +73,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 			redirectUser(ctx, "/authentication");
 		}
 	} else {
-		// if a user logged in then user can't access those pages
 		const ifLoggedIn =
 			ctx.pathname === "/authentication" ||
 			ctx.pathname === "/reset-password";
@@ -83,7 +86,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 			const response = await fetch(url, payload);
 			if (response.ok) {
 				const user = await response.json();
-				// console.log(user);
 				pageProps.user = user;
 			} else if (response.status === 404) {
 				console.error("User not found");
@@ -95,7 +97,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 			}
 		} catch (err) {
 			destroyCookie(ctx, "elarniv_users_token");
-			// redirectUser(ctx, "/");
 		}
 	}
 	return {

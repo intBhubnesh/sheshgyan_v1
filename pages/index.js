@@ -40,7 +40,7 @@ export default function Home() {
             {/* Hero */}
             <div className='w-full relative h-96 sm:h-[800px] mb-32'>
                 <div className='flex flex-col max-w-[560px] px-4 sm:ml-16'>
-                    <h1 className='text-5xl sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5'>
+                    <h1 className='heading text-5xl sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5'>
                         Shaping Young <span className='text-[#FF6200]'>Minds</span> for <br /> a <span className='text-[#FF6200]'>Tech-Driven</span> Future
                     </h1>
                     <p className='text-[#1F1F1F]/60 text-justify font-manrope text-base font-medium  tracking-[0.216px]  mb-9'>
@@ -48,10 +48,10 @@ export default function Home() {
                     </p>
                     <div className='inline-flex gap-6'>
                         <button className='bg-[#FFDDA3] rounded-[55px] flex justify-center items-center text-[#FF6200] font-[TuskerGrotesk] text-base font-medium uppercase h-14 w-40'>
-                            <h2>View Courses</h2>
+                            <h2 className="sub-heading">View Courses</h2>
                         </button>
                         <button className='bg-[#FF6200] text-[#FFFFFF] w-40 h-14 font-[TuskerGrotesk] text-base font-medium uppercase rounded-[55px] flex justify-center items-center z-20'>
-                            <h2>Request Demo</h2>
+                            <h2 className="sub-heading">Request Demo</h2>
                         </button>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export default function Home() {
                             <h1 className="heading" >1.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
-                            <h1 className='text-4xl sm:text-7xl  uppercase text-[#FF6200] '>Future-Ready Learning</h1>
+                            <h1 className='heading text-4xl sm:text-7xl  uppercase text-[#FF6200] '>Future-Ready Learning</h1>
                             <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Empower students with AI, IoT, Robotics, and Programming through hands-on, industry-aligned courses. Our practical approach ensures they grasp real-world applications of modern technology.</p>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ export default function Home() {
                             <h1 className="heading" >2.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
-                            <h1 className='text-4xl sm:text-7xl uppercase text-[#FF6200] '>Expert-Led Training</h1>
+                            <h1 className='heading text-4xl sm:text-7xl uppercase text-[#FF6200] '>Expert-Led Training</h1>
                             <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Certified trainers deliver interactive sessions, workshops, and teacher training programs. We help educators stay ahead with cutting-edge knowledge, ensuring a seamless tech-learning experience.</p>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ export default function Home() {
                             <h1 className="heading" >3.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
-                            <h1 className='text-4xl sm:text-7xl uppercase text-[#FF6200] '>Shaping Smarter Minds</h1>
+                            <h1 className='heading text-4xl sm:text-7xl uppercase text-[#FF6200] '>Shaping Smarter Minds</h1>
                             <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Foster innovation and critical thinking with future-focused education. Our programs prepare students to excel in a tech-driven world, equipping them with the skills to thrive.</p>
                         </div>
                     </div>
@@ -146,10 +146,10 @@ export default function Home() {
             <div className='flex flex-col w-full gap-4 p-2 sm:gap-10 sm:p-24'>
             <div className='inline-flex flex-col w-full gap-6 px-6 py-4 sm:p-0'>
                     <div className='flex items-center justify-end'>
-                        <h5 className='text-xs uppercase bg-[#FFDDA3] py-1.5 px-4 text-[#FF6200] inline-flex rounded-lg'>Subject</h5>
+                        <h5 className='para  text-xs uppercase bg-[#FFDDA3] py-1.5 px-4 text-[#FF6200] inline-flex rounded-lg'>Subject</h5>
                     </div>
                     <div className='flex flex-col items-end justify-between w-full gap-2 sm:flex-row sm:items-start'>
-                        <h1 className='uppercase text-4xl sm:text-7xl text-[#FF6200]'>Fields of Study</h1>
+                        <h1 className='heading uppercase text-4xl sm:text-7xl text-[#FF6200]'>Fields of Study</h1>
                         <p className='md:text-base text-justify text-xs text-[#1F1F1F]/80 max-w-[540px]'>Discover exciting subjects like AI, Robotics, IoT, and Programming, designed to equip students with real-world tech skills for the future.</p>
                     </div>
                     </div>
@@ -169,7 +169,7 @@ export default function Home() {
                                     priority
                                 />
                                 </div>
-                                <h1 className='inline-flex items-center justify-center text-2xl uppercase sm:text-4xl'>{subject.name}</h1>
+                                <h1 className='inline-flex items-center justify-center text-2xl uppercase heading sm:text-4xl'>{subject.name}</h1>
                             </div>
 
                         ))
@@ -199,7 +199,7 @@ export default function Home() {
                                     <path d="M25.7788 79.0885C24.0148 79.0885 19.944 76.3068 13.5664 70.7434C7.18879 65.18 4 61.3806 4 59.3452C4 57.1741 9.90266 50.5251 21.708 39.3983C33.5133 28.2714 40.0944 22.708 41.4513 22.708C41.8584 22.708 42.7404 23.3865 44.0974 24.7434C45.59 26.1003 46.3363 27.1859 46.3363 28C46.3363 28.6785 43.1475 35.0561 36.7699 47.1328C44.233 52.9676 47.9646 56.9705 47.9646 59.1416C47.9646 61.3127 44.708 65.18 38.1947 70.7434C31.6814 76.3068 27.5428 79.0885 25.7788 79.0885ZM73.8142 79.0885C72.0501 79.0885 67.9794 76.3068 61.6018 70.7434C55.2242 65.18 52.0354 61.3806 52.0354 59.3452C52.0354 57.1741 57.9381 50.5251 69.7434 39.3983C81.5487 28.2714 88.1298 22.708 89.4867 22.708C89.8938 22.708 90.7758 23.3865 92.1328 24.7434C93.6254 26.1003 94.3717 27.1859 94.3717 28C94.3717 28.6785 91.1829 35.0561 84.8053 47.1328C92.2684 52.9676 96 56.9705 96 59.1416C96 61.3127 92.7434 65.18 86.2301 70.7434C79.7168 76.3068 75.5782 79.0885 73.8142 79.0885Z" fill="black" />
                                 </svg>
                             </div >
-                            <h1 className='text-[#7F7F7F] text-xl sm:text-3xl uppercase  max-w-[420px]'>Empowering the <span className='text-[#FF6200]'>next generation</span> with practical
+                            <h1 className='heading text-[#7F7F7F] text-xl sm:text-3xl uppercase  max-w-[420px]'>Empowering the <span className='text-[#FF6200]'>next generation</span> with practical
                                 <span className='text-[#FF6200]'> tech skills</span> to thrive in a digital-first world.</h1>
                             <div className='absolute right-8 bottom-6'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 51" fill="none">
@@ -214,7 +214,7 @@ export default function Home() {
                                     <path d="M25.7788 79.0885C24.0148 79.0885 19.944 76.3068 13.5664 70.7434C7.18879 65.18 4 61.3806 4 59.3452C4 57.1741 9.90266 50.5251 21.708 39.3983C33.5133 28.2714 40.0944 22.708 41.4513 22.708C41.8584 22.708 42.7404 23.3865 44.0974 24.7434C45.59 26.1003 46.3363 27.1859 46.3363 28C46.3363 28.6785 43.1475 35.0561 36.7699 47.1328C44.233 52.9676 47.9646 56.9705 47.9646 59.1416C47.9646 61.3127 44.708 65.18 38.1947 70.7434C31.6814 76.3068 27.5428 79.0885 25.7788 79.0885ZM73.8142 79.0885C72.0501 79.0885 67.9794 76.3068 61.6018 70.7434C55.2242 65.18 52.0354 61.3806 52.0354 59.3452C52.0354 57.1741 57.9381 50.5251 69.7434 39.3983C81.5487 28.2714 88.1298 22.708 89.4867 22.708C89.8938 22.708 90.7758 23.3865 92.1328 24.7434C93.6254 26.1003 94.3717 27.1859 94.3717 28C94.3717 28.6785 91.1829 35.0561 84.8053 47.1328C92.2684 52.9676 96 56.9705 96 59.1416C96 61.3127 92.7434 65.18 86.2301 70.7434C79.7168 76.3068 75.5782 79.0885 73.8142 79.0885Z" fill="black" />
                                 </svg>
                             </div>
-                            <h1 className='text-[#7F7F7F] text-xl sm:text-3xl uppercase max-w-[500px]'><span className='text-[#FF6200]'>Bridging</span> the gap between <span className='text-[#FF6200]'>education</span> and <span className='text-[#FF6200]'>industry</span> by  hands-on <span className='text-[#FF6200]'>technology learning</span> into <span className='text-[#FF6200]'>classrooms</span>.</h1>
+                            <h1 className='heading text-[#7F7F7F] text-xl sm:text-3xl uppercase max-w-[500px]'><span className='text-[#FF6200]'>Bridging</span> the gap between <span className='text-[#FF6200]'>education</span> and <span className='text-[#FF6200]'>industry</span> by  hands-on <span className='text-[#FF6200]'>technology learning</span> into <span className='text-[#FF6200]'>classrooms</span>.</h1>
 
                             <div className='absolute right-8 bottom-6'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 51" fill="none">
@@ -246,7 +246,7 @@ export default function Home() {
                                         />
                                     </div>
                                     <div className='inline-flex gap-1 flex-col max-w-[520px]'>
-                                        <h1 className='text-2xl sm:text-4xl text-[#505050] uppercase'>{phase.heading}</h1>
+                                        <h1 className='heading text-2xl sm:text-4xl text-[#505050] uppercase'>{phase.heading}</h1>
                                         <p className='text-xs sm:text-sm text-[#2E2E2E]/80 text-justify'>{phase.desc}</p>
                                     </div>
                                 </div>
@@ -272,12 +272,12 @@ export default function Home() {
                     team_members.map((team_member, index) => (
                         <div key={index} className={`${index % 2 !== 0 ? "flex-col-reverse sm:flex-row-reverse" : 'flex-col-reverse '} flex-col sm:flex-row flex items-center justify-center w-full sm:gap-18 mb-6 sm:mb-0`}>
                             <div className='relative '>
-                                <h1 className=' text-[rgba(255,255,255,0.40)] text-7xl sm:text-[108px] font-semibold sm:leading-[120px] tracking-[2.16px] uppercase'>shesh-gyan
+                                <h1 className='heading  text-[rgba(255,255,255,0.40)] text-7xl sm:text-[108px] font-semibold sm:leading-[120px] tracking-[2.16px] uppercase'>shesh-gyan
                                 </h1>
                                 <p className='text-[rgba(46,46,46,0.82)] text-center text-base sm:text-[18px] font-medium  tracking-[0.216px] capitalize '>
                                     {team_member.designation}
                                 </p>
-                                <h1 className='text-[#505050] text-center text-4xl sm:text-[52px] font-semibold tracking-[1.04px] uppercase absolute text-nowrap left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2'>                                    {team_member.name}
+                                <h1 className='heading text-[#505050] text-center text-4xl sm:text-[52px] font-semibold tracking-[1.04px] uppercase absolute text-nowrap left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2'>                                    {team_member.name}
                                 </h1>
                             </div>
                             <div className='w-60 sm:max-w-80'>
