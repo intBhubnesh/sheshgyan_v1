@@ -8,7 +8,7 @@ const Form = () => {
                     <div>
                 <div className='bg-[#FF7C2A] m-4 p-8 flex rounded-3xl flex-col md:flex-row'>
                     <div className='size-[280px] md:size-[600px] '>
-                        <Image
+                        <img
                             src="/form_img.svg" // Reference directly from public/
                             alt="kid_img"
 
@@ -17,12 +17,12 @@ const Form = () => {
                             priority // Optimizes for faster loading
                         />
                         <div className='flex flex-col gap-4 p-8'>
-                            <h1 className='text-3xl text-white uppercase md:text-5xl '>Let’s Connect & Build the Future!</h1>
+                            <h1 className='text-3xl text-white uppercase heading md:text-5xl '>Let’s Connect & Build the Future!</h1>
                             <p className='text-xs tracking-wider capitalize text-white/90 md:text-sm'>Have questions or want to bring future-ready learning to your school? Fill out the form, and our team will reach out to you shortly!</p>
                         </div>
                     </div>
                     <div className='flex flex-col gap-8 px-8 py-10 bg-white rounded-3xl shadow-[10px_10px_0px_0px_#303030] '>
-                        <h1 className='uppercase text-[#FF6200] md:text-7xl text-4xl drop-shadow-[2px_2px_0px_#303030]'>request a demo</h1>
+                        <h1 className='heading uppercase text-[#FF6200] md:text-7xl text-4xl drop-shadow-[2px_2px_0px_#303030]'>request a demo</h1>
                         <form action="" className='flex flex-col gap-4'>
                             <div className='flex flex-col gap-2'>
                                 <h3 for="name" className='md:text-base text-sm font-medium font-[inter]'>Full Name</h3>

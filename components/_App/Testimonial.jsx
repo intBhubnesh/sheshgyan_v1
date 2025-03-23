@@ -1,9 +1,12 @@
 import React from 'react'
 import Sectionheading from './Sectionheading'
 import Image from 'next/image'
+import Navbar from './Nav'
 const Testimonial = ({testimonials=[]}) => {
   return (
     <div>
+        <Navbar />
+
                     <div className='bg-[#FF7C2B] w-full flex flex-col py-12'>
                 <Sectionheading tag='User Stories' heading='Tech Leaders' desc='Hear from schools, students, and parents about how SheshGyan is transforming education with hands-on learning and future-ready skills.' isRight={false} bg='orange' className='p-12' />
                 <div className='flex flex-col items-center justify-around w-full gap-4 md:flex-row'>
@@ -42,8 +45,8 @@ const Testimonial = ({testimonials=[]}) => {
                                 </div>
 
                                 <div className="inline-flex items-end justify-between px-2 py-2">
-                                    <h1 className="md:text-5xl text-3xl text-[#FF6200] uppercase">{testimonial.heading}</h1>
-                                    <p className="md:text-lg text-sm text-[#1F1F1F]/60">{testimonial.name}</p>
+                                    <h1 className="heading md:text-5xl text-3xl text-[#FF6200] uppercase">{testimonial.heading}</h1>
+                                    <p className="md:text-lg para text-sm text-[#1F1F1F]/60">{testimonial.name}</p>
                                 </div>
                             </div>
                         ))

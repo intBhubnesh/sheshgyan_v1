@@ -8,6 +8,9 @@ import team_members from './data/team'
 import QnAs from './data/questions'
 import testimonials from './data/testimonials'
 import Testimonial from '../components/_App/Testimonial'
+import Footer from '@/components/_App/Foot';
+import TailwindWrapper from '@/components/_App/TailwindWrapper';
+import Navbar from '@/components/_App/Nav';
 export default function Home() {
 
 
@@ -35,15 +38,18 @@ export default function Home() {
 
 
     return (
+        <TailwindWrapper>
 
-        <div className='w-full pt-56 overflow-hidden sm:py-52'>
+        <div className='w-full pt-56 overflow-hidden sm:pt-52'>
+
+        <Navbar />
             {/* Hero */}
             <div className='w-full relative h-96 sm:h-[800px] mb-32'>
                 <div className='flex flex-col max-w-[560px] px-4 sm:ml-16'>
                     <h1 className='heading text-5xl sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5'>
                         Shaping Young <span className='text-[#FF6200]'>Minds</span> for <br /> a <span className='text-[#FF6200]'>Tech-Driven</span> Future
                     </h1>
-                    <p className='text-[#1F1F1F]/60 text-justify font-manrope text-base font-medium  tracking-[0.216px]  mb-9'>
+                    <p className='para text-[#1F1F1F]/60 text-justify font-manrope text-base font-medium  tracking-[0.216px]  mb-9'>
                         Technology is more than just learning—it's about building, innovating, and leading. We equip students with the skills and confidence to navigate the digital world, turning curiosity into real-world impact.
                     </p>
                     <div className='inline-flex gap-6'>
@@ -55,7 +61,7 @@ export default function Home() {
                         </button>
                     </div>
                 </div>
-                <Image
+                <img
                     className='absolute hidden -top-32 right-16 sm:block'
                     src="/HeroCHILD.svg" // Reference directly from public/
                     alt="Child image"
@@ -63,7 +69,7 @@ export default function Home() {
                     height={860} // Set an appropriate height
                     priority // Optimizes for faster loading
                 />
-                <Image
+                <img
                     className='absolute hidden left-96 top-72 '
                     src="/HeroROBOT.svg" // Reference directly from public/
                     alt="Robot image"
@@ -75,11 +81,11 @@ export default function Home() {
             </div>
 
             {/* Benefits */}
-            <div className='sm:p-18 sm:py-18 bg-[#FFDDA3] m-2 sm:m-5 flex flex-col gap-6 sm:gap-12 rounded-4xl sm:rounded-[72px]'>
+            <div className=' md:p-24 sm:py-18 bg-[#FFDDA3] m-2 sm:m-5 flex flex-col gap-6 sm:gap-12 rounded-[52px]'>
 
                 <Sectionheading tag='Benefits' heading='Our Impact' desc='We’re transforming education by equipping students with future-ready skills, empowering educators with the right tools, and helping schools stay ahead in the digital era.' />
                 <div className='flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-32'>
-                    <Image className='size-56 sm:size-96'
+                    <img className='size-56 sm:size-96'
                         src="/iot_bot.svg" // Reference directly from public/
                         alt="iot bot image"
                         width={420} // Set an appropriate width
@@ -87,12 +93,12 @@ export default function Home() {
                         priority // Optimizes for faster loading
                     />
                     <div className='inline-flex gap-4 sm:gap-8 flex-col items-center justify-center max-w-[464px]'>
-                        <div className='size-12 sm:size-24 bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
+                        <div className='md:w-24 md:h-24 w-12 h-12  bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
                             <h1 className="heading" >1.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
                             <h1 className='heading text-4xl sm:text-7xl  uppercase text-[#FF6200] '>Future-Ready Learning</h1>
-                            <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Empower students with AI, IoT, Robotics, and Programming through hands-on, industry-aligned courses. Our practical approach ensures they grasp real-world applications of modern technology.</p>
+                            <p className='para text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Empower students with AI, IoT, Robotics, and Programming through hands-on, industry-aligned courses. Our practical approach ensures they grasp real-world applications of modern technology.</p>
                         </div>
                     </div>
 
@@ -100,15 +106,15 @@ export default function Home() {
                 </div>
                 <div className='flex flex-col-reverse items-center justify-center gap-4 sm:flex-row sm:gap-32'>
                     <div className='inline-flex gap-4 sm:gap-8 flex-col items-center justify-center max-w-[410px]'>
-                        <div className='sm:size-24 size-12 bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
+                        <div className='md:w-24 md:h-24 w-12 h-12  bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
                             <h1 className="heading" >2.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
                             <h1 className='heading text-4xl sm:text-7xl uppercase text-[#FF6200] '>Expert-Led Training</h1>
-                            <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Certified trainers deliver interactive sessions, workshops, and teacher training programs. We help educators stay ahead with cutting-edge knowledge, ensuring a seamless tech-learning experience.</p>
+                            <p className='para text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Certified trainers deliver interactive sessions, workshops, and teacher training programs. We help educators stay ahead with cutting-edge knowledge, ensuring a seamless tech-learning experience.</p>
                         </div>
                     </div>
-                    <Image className='size-64 sm:size-96'
+                    <img className='size-64 sm:size-96'
                         src="/ar_vr_bot.svg" // Reference directly from public/
                         alt="ar-vr bot image"
                         width={480} // Set an appropriate width
@@ -119,7 +125,7 @@ export default function Home() {
 
                 </div>
                 <div className='flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-32'>
-                    <Image className='size-56 sm:size-96'
+                    <img className='size-56 sm:size-96'
                         src="/ai_ml_bot.svg" // Reference directly from public/
                         alt="ai-ml bot image"
                         width={420} // Set an appropriate width
@@ -127,12 +133,12 @@ export default function Home() {
                         priority // Optimizes for faster loading
                     />
                     <div className='inline-flex gap-4 sm:gap-8 flex-col items-center justify-center  max-w-[490px] pb-10 sm:pb-0'>
-                        <div className='sm:size-24 size-12 bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
+                        <div className='md:w-24 md:h-24 w-12 h-12  bg-[#FFEFD4] rounded-2xl text-3xl sm:text-6xl text-[#FF6200] flex items-center justify-center'>
                             <h1 className="heading" >3.</h1>
                         </div>
                         <div className='inline-flex flex-col items-center justify-center gap-2 sm:items-start sm:gap-8 '>
                             <h1 className='heading text-4xl sm:text-7xl uppercase text-[#FF6200] '>Shaping Smarter Minds</h1>
-                            <p className='text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Foster innovation and critical thinking with future-focused education. Our programs prepare students to excel in a tech-driven world, equipping them with the skills to thrive.</p>
+                            <p className='para text-sm sm:text-lg capitalize  text-justify text-[#1F1F1F] p-2 sm:p-0'>Foster innovation and critical thinking with future-focused education. Our programs prepare students to excel in a tech-driven world, equipping them with the skills to thrive.</p>
                         </div>
                     </div>
 
@@ -150,7 +156,7 @@ export default function Home() {
                     </div>
                     <div className='flex flex-col items-end justify-between w-full gap-2 sm:flex-row sm:items-start'>
                         <h1 className='heading uppercase text-4xl sm:text-7xl text-[#FF6200]'>Fields of Study</h1>
-                        <p className='md:text-base text-justify text-xs text-[#1F1F1F]/80 max-w-[540px]'>Discover exciting subjects like AI, Robotics, IoT, and Programming, designed to equip students with real-world tech skills for the future.</p>
+                        <p className='para md:text-base text-justify text-xs text-[#1F1F1F]/80 max-w-[540px]'>Discover exciting subjects like AI, Robotics, IoT, and Programming, designed to equip students with real-world tech skills for the future.</p>
                     </div>
                     </div>
                 <div className='flex flex-wrap items-center justify-center gap-6 sm:gap-12 p-6 sm:mt-12 bg-[#FFDDA3] py-12 rounded-4xl'>
@@ -161,7 +167,7 @@ export default function Home() {
                                 className='bg-[#FFDDA3] border-2 border-[#1f1f1f]/10 border-dashed inline-flex flex-col p-2 rounded-2xl gap-4 hover:border-none hover:scale-105 hover:shadow-[10px_10px_0px_0px_#303030] transition-transform duration-300 will-change-transform hover:bg-[#FF6200] hover:text-white'
                             >
                                 <div className='w-28 sm:w-60'>
-                                <Image
+                                <img
                                     src={subject.img}
                                     alt="subject image"
                                     width={240}
@@ -184,7 +190,7 @@ export default function Home() {
                 <div className='flex flex-col items-center justify-between sm:flex-row '>
 
                     <div className='w-40 sm:w-[300px]'>
-                    <Image
+                    <img
                         src="/AboutUsROBOT.svg" // Reference directly from public/
                         alt="about us image"
                         width={300} // Set an appropriate width
@@ -193,7 +199,7 @@ export default function Home() {
                     />
                     </div>
                     <div className='flex flex-col w-2/3 gap-8'>
-                        <div className=' inline-flex items-center justify-center p-10 w-full sm:w-[80%]  bg-white relative rounded-4xl shadow-[8px_8px_0px_0px_#FF6200,0px_2px_23px_0px_#FFE0CD] ml-12'>
+                        <div style={{"borderRadius": "2rem"}} className=' inline-flex items-center justify-center p-10 w-full sm:w-[80%]  bg-white relative rounded-4xl shadow-[8px_8px_0px_0px_#FF6200,0px_2px_23px_0px_#FFE0CD] ml-12'>
                             <div className='absolute top-0 -left-6'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 100 101" fill="none">
                                     <path d="M25.7788 79.0885C24.0148 79.0885 19.944 76.3068 13.5664 70.7434C7.18879 65.18 4 61.3806 4 59.3452C4 57.1741 9.90266 50.5251 21.708 39.3983C33.5133 28.2714 40.0944 22.708 41.4513 22.708C41.8584 22.708 42.7404 23.3865 44.0974 24.7434C45.59 26.1003 46.3363 27.1859 46.3363 28C46.3363 28.6785 43.1475 35.0561 36.7699 47.1328C44.233 52.9676 47.9646 56.9705 47.9646 59.1416C47.9646 61.3127 44.708 65.18 38.1947 70.7434C31.6814 76.3068 27.5428 79.0885 25.7788 79.0885ZM73.8142 79.0885C72.0501 79.0885 67.9794 76.3068 61.6018 70.7434C55.2242 65.18 52.0354 61.3806 52.0354 59.3452C52.0354 57.1741 57.9381 50.5251 69.7434 39.3983C81.5487 28.2714 88.1298 22.708 89.4867 22.708C89.8938 22.708 90.7758 23.3865 92.1328 24.7434C93.6254 26.1003 94.3717 27.1859 94.3717 28C94.3717 28.6785 91.1829 35.0561 84.8053 47.1328C92.2684 52.9676 96 56.9705 96 59.1416C96 61.3127 92.7434 65.18 86.2301 70.7434C79.7168 76.3068 75.5782 79.0885 73.8142 79.0885Z" fill="black" />
@@ -208,13 +214,13 @@ export default function Home() {
                             </div>
 
                         </div>
-                        <div className='inline-flex items-center w-full sm:w-[80%] justify-center p-8 sm:p-10 pl-16 bg-white relative rounded-4xl shadow-[8px_8px_0px_0px_#FF6200,0px_2px_23px_0px_#FFE0CD] sm:mr-12'>
+                        <div style={{"borderRadius": "2rem"}} className='inline-flex items-center w-full sm:w-[80%] justify-center p-8 sm:p-10 pl-16 bg-white relative rounded-4xl  shadow-[8px_8px_0px_0px_#FF6200,0px_2px_23px_0px_#FFE0CD] sm:mr-12'>
                             <div className='absolute top-0 -left-6'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 100 101" fill="none">
                                     <path d="M25.7788 79.0885C24.0148 79.0885 19.944 76.3068 13.5664 70.7434C7.18879 65.18 4 61.3806 4 59.3452C4 57.1741 9.90266 50.5251 21.708 39.3983C33.5133 28.2714 40.0944 22.708 41.4513 22.708C41.8584 22.708 42.7404 23.3865 44.0974 24.7434C45.59 26.1003 46.3363 27.1859 46.3363 28C46.3363 28.6785 43.1475 35.0561 36.7699 47.1328C44.233 52.9676 47.9646 56.9705 47.9646 59.1416C47.9646 61.3127 44.708 65.18 38.1947 70.7434C31.6814 76.3068 27.5428 79.0885 25.7788 79.0885ZM73.8142 79.0885C72.0501 79.0885 67.9794 76.3068 61.6018 70.7434C55.2242 65.18 52.0354 61.3806 52.0354 59.3452C52.0354 57.1741 57.9381 50.5251 69.7434 39.3983C81.5487 28.2714 88.1298 22.708 89.4867 22.708C89.8938 22.708 90.7758 23.3865 92.1328 24.7434C93.6254 26.1003 94.3717 27.1859 94.3717 28C94.3717 28.6785 91.1829 35.0561 84.8053 47.1328C92.2684 52.9676 96 56.9705 96 59.1416C96 61.3127 92.7434 65.18 86.2301 70.7434C79.7168 76.3068 75.5782 79.0885 73.8142 79.0885Z" fill="black" />
                                 </svg>
                             </div>
-                            <h1 className='heading text-[#7F7F7F] text-xl sm:text-3xl uppercase max-w-[500px]'><span className='text-[#FF6200]'>Bridging</span> the gap between <span className='text-[#FF6200]'>education</span> and <span className='text-[#FF6200]'>industry</span> by  hands-on <span className='text-[#FF6200]'>technology learning</span> into <span className='text-[#FF6200]'>classrooms</span>.</h1>
+                            <h1  className='heading text-[#7F7F7F] text-xl  sm:text-3xl uppercase max-w-[500px]'><span className='text-[#FF6200]'>Bridging</span> the gap between <span className='text-[#FF6200]'>education</span> and <span className='text-[#FF6200]'>industry</span> by  hands-on <span className='text-[#FF6200]'>technology learning</span> into <span className='text-[#FF6200]'>classrooms</span>.</h1>
 
                             <div className='absolute right-8 bottom-6'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 51" fill="none">
@@ -232,12 +238,12 @@ export default function Home() {
                 <Sectionheading tag='Journey' heading='Student Journey' desc='Discover exciting subjects like AI, Robotics, IoT, and Programming, designed to equip students with real-world tech skills for the future.' isRight={false} />
 
                 <div className='relative flex items-center '>
-                    <div className='inline-flex  bg-white flex-col items-start justify-center gap-8 p-12 py-10 rounded-4xl shadow-[-16px_16px_0px_0px_#514D4D,3px_0px_23.1px_0px_#5C5C5C33]'>
+                    <div className='inline-flex  bg-white flex-col items-start justify-center gap-8 p-12 py-10 rounded-[24px] shadow-[-16px_16px_0px_0px_#514D4D,3px_0px_23.1px_0px_#5C5C5C33]'>
                         {
                             journy.map((phase, index) => (
                                 <div key={index} className='flex items-start justify-between gap-4'>
                                     <div className='inline-flex items-center justify-center p-2 bg-[#FF6200]/10 rounded-2xl w-28 sm:w-14'>
-                                        <Image
+                                        <img
                                             src={phase.icon} // Reference directly from public/
                                             alt="journey icon"
                                             width={40} // Set an appropriate width
@@ -247,12 +253,12 @@ export default function Home() {
                                     </div>
                                     <div className='inline-flex gap-1 flex-col max-w-[520px]'>
                                         <h1 className='heading text-2xl sm:text-4xl text-[#505050] uppercase'>{phase.heading}</h1>
-                                        <p className='text-xs sm:text-sm text-[#2E2E2E]/80 text-justify'>{phase.desc}</p>
+                                        <p className='para text-xs sm:text-sm text-[#2E2E2E]/80 text-justify'>{phase.desc}</p>
                                     </div>
                                 </div>
                             ))
                         }
-                        <Image
+                        <img
                             className='absolute right-0 hidden -top-20 -z-10 sm:block'
                             src="/journy_robo.svg" // Reference directly from public/
                             alt="journy robo image"
@@ -270,18 +276,18 @@ export default function Home() {
 
                 {
                     team_members.map((team_member, index) => (
-                        <div key={index} className={`${index % 2 !== 0 ? "flex-col-reverse sm:flex-row-reverse" : 'flex-col-reverse '} flex-col sm:flex-row flex items-center justify-center w-full sm:gap-18 mb-6 sm:mb-0`}>
+                        <div key={index} className={`${index % 2 !== 0 ? "flex-col-reverse sm:flex-row-reverse" : 'flex-col-reverse '} flex-col sm:flex-row flex items-center justify-center w-full gap-[40px] mb-6 sm:mb-0`}>
                             <div className='relative '>
                                 <h1 className='heading  text-[rgba(255,255,255,0.40)] text-7xl sm:text-[108px] font-semibold sm:leading-[120px] tracking-[2.16px] uppercase'>shesh-gyan
                                 </h1>
-                                <p className='text-[rgba(46,46,46,0.82)] text-center text-base sm:text-[18px] font-medium  tracking-[0.216px] capitalize '>
+                                <p className='para text-[rgba(46,46,46,0.82)] text-center text-base sm:text-[18px] font-medium  tracking-[0.216px] capitalize '>
                                     {team_member.designation}
                                 </p>
                                 <h1 className='heading text-[#505050] text-center text-4xl sm:text-[52px] font-semibold tracking-[1.04px] uppercase absolute text-nowrap left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2'>                                    {team_member.name}
                                 </h1>
                             </div>
                             <div className='w-60 sm:max-w-80'>
-                            <Image
+                            <img
                                 src={team_member.img} // Reference directly from public/
                                 alt={team_member.name}
                                 width={320} // Set an appropriate width
@@ -306,7 +312,7 @@ export default function Home() {
                     <div className="relative flex whitespace-nowrap">
                         <div className="flex gap-8 animate-scroll">
                             {[...images, ...images].map((src, index) => (
-                                <Image key={index} src={src} alt={`Collab ${index + 1}`} width={100} height={100} className="object-contain w-24 h-24" />
+                                <img key={index} src={src} alt={`Collab ${index + 1}`} width={100} height={100} className="object-contain w-24 h-24" />
                             ))}
                         </div>
                     </div>
@@ -323,7 +329,11 @@ export default function Home() {
 
             {/* Request Form */}
             <Form />
+
+            <Footer />
+
         </div>
+        </TailwindWrapper>
 
 
 

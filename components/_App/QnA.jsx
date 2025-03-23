@@ -3,6 +3,7 @@
    import React from 'react'
     import { useState } from "react";
 import Sectionheading from './Sectionheading';
+import TailwindWrapper from './TailwindWrapper';
 
     const QnA = ({QnAs = []}) => {
         const [openIndex, setOpenIndex] = useState(null);
@@ -12,16 +13,17 @@ import Sectionheading from './Sectionheading';
         };
     return (
         <>
-                    <div className='flex flex-col w-full gap-4 sm:gap-16 p-4 sm:p-24'>
+        <TailwindWrapper>
+        <div className='flex flex-col w-full gap-4 p-4 sm:gap-16 sm:p-24'>
                     <Sectionheading tag="QnA" heading="MOST Asked Questions" desc="Curious about how SheshGyan works? Whether you're a school, student, or parent, find everything you need to know about our programs, subjects, and how we empower the next generation with future-ready skills." />
-                <div className='flex flex-col items-end w-full gap-5'>
+                <div className='flex flex-col items-end w-full gap-4 p-4'>
                     {QnAs.map((QnA, index) => (
                         <div
                             key={index}
-                            className={`border-[1.4px] w-full border-[#D0D3D7] bg-white rounded-[18px] transition-all duration-500 transform ${openIndex === index ? 'border-[#FF6200]/50 shadow-[8px_8px_0px_0px_#FF6200] translate-x-2' : 'translate-x-0'}`}
+                            className={`border-[1.4px] p-4 w-full border-[#D0D3D7] bg-white rounded-[18px] transition-all duration-500 transform ${openIndex === index ? 'border-[#FF6200]/50 shadow-[8px_8px_0px_0px_#FF6200] translate-x-2' : 'translate-x-0'}`}
                         >
                             <div
-                                className="flex justify-between items-center px-4 py-0 sm:p-7 cursor-pointer"
+                                className="flex items-center justify-between px-4 py-0 cursor-pointer sm:p-7"
                                 onClick={() => toggleAnswer(index)}
                             >
                                 <h2 className="sub-heading text-[#505050] text-[17px] sm:text-4xl font-medium leading-[62px] tracking-[-0.72px] font-[Tusker Grotesk]">
@@ -40,7 +42,7 @@ import Sectionheading from './Sectionheading';
                                 </div>
                             </div>
                             {openIndex === index && (
-                                <p className="text-[#616161]/80 text-base sm:text-2xl font-medium sm:leading-[40px] tracking-[-0.96px] font-[Manrope] self-stretch p-4 sm:p-7 transition-opacity duration-500 ease-in-out opacity-100">
+                                <p className="text-[#616161]/80 para text-base sm:text-2xl font-medium sm:leading-[40px] tracking-[-0.96px] font-[Manrope] self-stretch p-4 sm:p-7 transition-opacity duration-500 ease-in-out opacity-100">
                                     {QnA.Answer}
                                 </p>
                             )}
@@ -48,6 +50,7 @@ import Sectionheading from './Sectionheading';
                     ))}
                 </div>
             </div>
+            </TailwindWrapper>
         </>
     )
     }

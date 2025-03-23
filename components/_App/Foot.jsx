@@ -1,9 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import TailwindWrapper from "./TailwindWrapper"
 
 const Footer = () => {
   return (
     <>
+        <TailwindWrapper>
          <footer className='bg-[#F3F2F7]/80  md:pt-24 md:px-12 p-4 py-20 flex flex-col md:gap-6 items-center justify-between h-fit pb-4 w-full '>
                 <div className='flex items-start w-full justify-between border-b-2 pb-12 border-[#1f1f1f]/10'>
                     <div className='flex flex-wrap items-start justify-between w-1/2 gap-4 '>
@@ -85,7 +87,7 @@ const Footer = () => {
                 </div>
                 <div className='flex flex-col items-center justify-center w-full md:justify-between md:flex-row'>
                     <span className='text-sm text-[#646464]'>©2025 All rights reserved by SheshGyan</span>
-                    <Image
+                    <img
                         src="/logo.svg" // Reference directly from public/
                         alt="Summer Camp Banner"
                         width={140} // Set an appropriate width
@@ -93,14 +95,15 @@ const Footer = () => {
                         priority // Optimizes for faster loading
                     />
                     <div className='text-sm text-[#646464] flex gap-4 font-medium'>
-                        <h4>Privacy Policy</h4>
-                        <h4>Term of use</h4>
-                        <h4>Refund Policy</h4>
+                        <span>Privacy Policy</span>
+                        <span>Term of use</span>
+                        <span>Refund Policy</span>
                     </div>
                 </div>
 
 
             </footer>
+            </TailwindWrapper>
     </>
   )
 }
