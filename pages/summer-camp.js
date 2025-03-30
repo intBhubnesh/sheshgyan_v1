@@ -36,7 +36,7 @@ const SummerCamp = () => {
         setActiveIndex((prev) => (prev - 1 + cources.length) % cources.length);
       };
     return (
-        <div className='w-full mt-20'>
+        <div className='w-full mt-40'>
             {/* hero */}
             <div className='flex flex-col items-center justify-center w-full gap-6 md:p-5 '>
                 <div className='inline-flex md:flex-row flex-col md:p-8 p-4  item-center   justify-between border-2 border-[#1F1F1F]/60 rounded-3xl w-[90%]   md:gap-6 gap-4'
@@ -113,7 +113,7 @@ const SummerCamp = () => {
             </div>
 
             {/* Program */}
-            <div className='flex flex-col items-center justify-center w-full p-2 my-12 md:gap-6 md:p-12 '>
+            <div id="View_Courses" className='flex flex-col items-center justify-center w-full p-2 my-12 md:gap-6 md:p-12'>
                 <Sectionheading tag='Programs' heading='Future Learning' desc='At SheshGyan, we offer a range of hands-on learning programs designed for students from Class 1 to 9. Our courses focus on coding, AI, robotics, and STEM, ensuring young learners develop essential problem-solving, creativity, and critical thinking skills.' />
 
                 {/* card */}
@@ -244,15 +244,15 @@ const SummerCamp = () => {
                         <h2 className='sub-heading md:text-3xl text-base tracking-wider uppercase text-[#6D6D6D]'>offline center</h2>
                         <div className='flex flex-col items-start gap-1 md:gap-2'>
                             <div className='inline-flex items-start justify-start gap-3'>
-                                <div className='md:h-8 w-8 h-4 w-4 md:rounded-lg rounded-sm bg-[#FF6200]'></div>
+                                <div className='md:h-8 md:w-8 h-4 w-4 md:rounded-lg rounded-sm bg-[#FF6200]'></div>
                                 <h4 className='font-semibold md:text-lg text-xs text-[#1F1F1F]/80'>Available</h4>
                             </div>
                             <div className='inline-flex items-center gap-3'>
-                                <div className='md:h-8 w-8 h-4 w-4 md:rounded-lg rounded-sm bg-[#D9D9D9]'></div>
+                                <div className='md:h-8 md:w-8 h-4 w-4 md:rounded-lg rounded-sm bg-[#D9D9D9]'></div>
                                 <h4 className='font-semibold md:text-lg text-xs text-[#1F1F1F]/80' >Coming Soon</h4>
                             </div>
                             <div className='inline-flex items-center gap-3'>
-                                <div className='border-[1.5px] md:h-8 w-8 h-4 w-4 md:rounded-lg rounded-sm border-black/60'></div>
+                                <div className='border-[1.5px] md:h-8 md:w-8 h-4 w-4 md:rounded-lg rounded-sm border-black/60'></div>
                                 <h4 className='font-semibold md:text-lg text-xs text-[#1F1F1F]/80' >Not - Available</h4>
                             </div>
                         </div>

@@ -5,15 +5,12 @@ const Form = () => {
   return (
     <>
                     {/* Request Form */}
-                    <div>
-                <div className='bg-[#FF7C2A] m-4 p-8 flex rounded-3xl flex-col md:flex-row'>
-                    <div className='size-[280px] md:size-[600px] '>
-                        <img
+                    <div id='Request_Demo'>
+                <div className='bg-[#FF7C2A] m-4 p-8 flex rounded-3xl flex-col lg:flex-row'>
+                    <div >
+                        <img className='w-[280px] sm:w-[400px] xl:w-[600px] '
                             src="/form_img.svg" // Reference directly from public/
                             alt="kid_img"
-
-                            width={600} // Set an appropriate width
-                            height={400} // Set an appropriate height
                             priority // Optimizes for faster loading
                         />
                         <div className='flex flex-col gap-4 p-8'>
