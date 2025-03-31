@@ -7,6 +7,7 @@ import testimonials from './data/testimonials'
 import Form from '../components/_App/Form'
 import Sectionheading from '../components/_App/Sectionheading'
 import Footer from '@/components/_App/Foot'
+import index from './admin/coupons'
 const SummerCamp = () => {
 
 
@@ -114,7 +115,7 @@ const SummerCamp = () => {
 
             {/* Program */}
             <div id="View_Courses" className='flex flex-col items-center justify-center w-full p-2 my-12 md:gap-6 md:p-12'>
-                <Sectionheading tag='Programs' heading='Future Learning' desc='At SheshGyan, we offer a range of hands-on learning programs designed for students from Class 1 to 9. Our courses focus on coding, AI, robotics, and STEM, ensuring young learners develop essential problem-solving, creativity, and critical thinking skills.' />
+                <Sectionheading tag='Programs' heading='Future Learning' desc='At SheshGyan, we offer a range of hands-on learning programs designed for students from Class 3 to 9. Our courses focus on coding, AI, robotics, and STEM, ensuring young learners develop essential problem-solving, creativity, and critical thinking skills.' />
 
                 {/* card */}
                 <div className='w-full'>
@@ -156,7 +157,7 @@ const SummerCamp = () => {
               activeIndex === index
                 ? "text-[#FF6200]  scale-110 "
                 : "text-[#828282] hover:scale-105"
-            }`}>{index + 1}</h1>
+            }`}>{index + 3}</h1>
           </div>
         ))}
       </div>
@@ -182,7 +183,7 @@ const SummerCamp = () => {
     </div>
                     <div className='flex items-center justify-center'>
                     <img
-                        src="/class_1_img.svg" // Reference directly from public/
+                        src={`/class_${activeIndex + 3}_img.png`}// Reference directly from public/
                         alt="Summer Camp Banner"
                         className='w-[1000px]'
                         width={600} // Set an appropriate width
