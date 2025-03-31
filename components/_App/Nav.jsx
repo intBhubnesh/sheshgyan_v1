@@ -2,6 +2,8 @@
     import Router from "next/router";
     import NProgress from "nprogress";
     import Link from "@/utils/ActiveLink";
+    import { FaBars, FaTimes } from "react-icons/fa";
+
 
     Router.onRouteChangeStart = () => NProgress.start();
     Router.onRouteChangeComplete = () => NProgress.done();
@@ -67,8 +69,8 @@
                 ))}
             </div>
             <Link href="/authentication">
-                <a  className="w-fit px-6 border-[#FF6200] border-2   text-center inline-flex items-center justify-center rounded-full bg-[#FF6200] uppercase ">
-                <h2 className="text-lg text-white sub-heading">Request Demo</h2>
+                <a  className="w-fit px-12 border-[#FF6200] border-2   text-center inline-flex items-center justify-center rounded-full bg-[#FF6200] uppercase ">
+                <h2 className="text-xl text-white sub-heading">Login</h2>
                 </a>
             </Link>
             </div>
@@ -76,16 +78,17 @@
             {/* Mobile Menu Toggle Button */}
             <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 mx-2 rounded-full lg:hidden text-white bg-[#FF6200]"
+            className="p-2 h-16   inline-flex items-center justify-center  w-16  mx-2 rounded-full lg:hidden  bg-[#FF6200]"
             >
             {menuOpen ? (
-                <span>
-                <i className="flaticon-cancel" style={{ fontSize: '24px' }}></i>
-                </span>
-            ) : (
-                <span>
-                <i className="flaticon-menu" style={{ fontSize: '24px' }}></i>
-                </span>
+    <span>
+    <FaTimes className="text-white" size={24} />
+</span>
+) : (
+<span>
+    <FaBars className="text-white" size={24} />
+</span>
+
             )}
             </button>
 
@@ -104,7 +107,7 @@
                         setMenuOpen(false);
                     }}
                     >
-                    <h2 className={`sub-heading w-52  text-center py-6 text-lg rounded-full h-full ${
+                    <h2 className={` w-40  text-center py-2 text-lg rounded-full h-full ${
                         activeTab === tab.name ? "bg-[#FF6200] text-white" : ""
                     }`}>{tab.name}</h2>
                     </a>
@@ -113,9 +116,8 @@
                 <Link href="/request-demo">
                 <a
                     onClick={() => setMenuOpen(false)}
-                    className="w-fit px-6 border-[#FF6200] border-2 text-center  inline-flex items-center justify-center     rounded-full  uppercase"
-                >
-                    <h2 className="text-white sub-heading">Request Demo</h2>
+                    className="w-fit py-3 mt-4 px-20 bg-[#FF6200] border-[#FF6200] border-2 text-center inline-flex items-center justify-center rounded-full uppercase">
+                    <h2 className="text-white">Login</h2>
                 </a>
                 </Link>
             </div>

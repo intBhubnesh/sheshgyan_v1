@@ -9,7 +9,7 @@ const Testimonial = ({testimonials=[]}) => {
 
                     <div className='bg-[#FF7C2B] w-full flex flex-col py-12'>
                 <Sectionheading tag='User Stories' heading='Tech Leaders' desc='Hear from schools, students, and parents about how SheshGyan is transforming education with hands-on learning and future-ready skills.' isRight={false} bg='orange' className='p-12' />
-                <div className='flex flex-col items-center justify-around w-full gap-4 md:flex-row'>
+                <div className='flex flex-col items-center justify-around w-full gap-4 lg:flex-row'>
                     {
                         testimonials.map((testimonial, index) => (
                             <div
