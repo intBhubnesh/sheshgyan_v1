@@ -92,15 +92,31 @@ return (
         )}
         </button>
 
-        {/* Mobile Navigation Menu */}
-        {menuOpen && (
-        <div className="absolute left-0 flex flex-col items-center w-full p-4 bg-white border-t-2 shadow-lg border-black/10 top-16 lg:hidden">
-            {tabs.map((tab) => (
-            <Link
-                key={tab.name}
-                href={tab.path}
-                activeClassName="active"
-            >
+
+
+            {/* Mobile Navigation Menu */}
+            {menuOpen && (
+            <div className="absolute left-0 flex flex-col items-center w-full p-4 bg-white border-t-2 shadow-lg border-black/10 top-16 lg:hidden">
+                {tabs.map((tab) => (
+                <Link
+                    key={tab.name}
+                    href={tab.path}
+                    activeClassName="active"
+                >
+                    <a
+                    onClick={() => {
+                        setActiveTab(tab.name);
+                        setMenuOpen(false);
+                    }}
+                    >
+                    <h2 className={` w-40  text-center py-2 text-lg rounded-full h-full ${
+                        activeTab === tab.name ? "bg-[#FF6200] text-white" : ""
+                    }`}>{tab.name}</h2>
+                    </a>
+                </Link>
+                ))}
+                <Link href="/authentication">
+
                 <a
                 onClick={() => {
                     setActiveTab(tab.name);
