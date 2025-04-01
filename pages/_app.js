@@ -18,6 +18,7 @@ import "@etchteam/next-pagination/dist/index.css";
 import "react-loading-skeleton/dist/skeleton.css";
 // Global Styles
 import "../styles/style.css";
+import "../styles/tailwind.css";
 import "../styles/responsive.css";
 
 // Dashboard
