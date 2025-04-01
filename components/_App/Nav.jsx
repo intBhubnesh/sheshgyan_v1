@@ -113,7 +113,7 @@
                     </a>
                 </Link>
                 ))}
-                <Link href="/request-demo">
+                <Link href="/authentication">
                 <a
                     onClick={() => setMenuOpen(false)}
                     className="w-fit py-3 mt-4 px-20 bg-[#FF6200] border-[#FF6200] border-2 text-center inline-flex items-center justify-center rounded-full uppercase">
