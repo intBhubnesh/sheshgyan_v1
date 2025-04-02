@@ -48,15 +48,15 @@ export default function Home() {
             {/* Hero */}
             <div className="w-full relative h-auto lg:h-96 flex flex-col lg:flex-row items-center lg:items-start justify-between mb-32 lg:px-8 xl:px-20">
     {/* Left Content: Heading, Paragraph, Buttons */}
-    <div className="flex flex-col max-w-[560px] w-full ">
-        <h1 className="heading text-[44px] sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5 text-left ">
+    <div className="flex flex-col max-w-[560px] w-full p-2">
+        <h1 className="heading text-[44px] sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5 text-center">
             Shaping Young <span className="text-[#FF6200]">Minds</span> for <br /> 
             a <span className="text-[#FF6200]">Tech-Driven</span> Future
         </h1>
         <p className="para text-[#1F1F1F]/60 lg:max-w-[460px] xl:max-w-[560px] text-justify font-manrope text-base font-medium tracking-[0.216px] mb-9">
             Technology is more than just learning—it's about building, innovating, and leading. We equip students with the skills and confidence to navigate the digital world, turning curiosity into real-world impact.
         </p>
-        <div className="inline-flex gap-6 justify-center lg:justify-start">
+        <div className="inline-flex gap-6 justify-center">
             <button className="bg-[#FFDDA3] rounded-[55px] flex justify-center items-center text-[#FF6200] font-[TuskerGrotesk] text-base font-medium uppercase h-14 w-40">
                 <h2 className="sub-heading">
                     <a href="/summer-camp#View_Courses">View Courses</a>
