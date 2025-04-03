@@ -46,7 +46,7 @@ export default function Home() {
         <Navbar />
         
             {/* Hero */}
-            <div className="w-full relative h-auto lg:h-96 flex flex-col lg:flex-row items-center lg:items-start justify-between mb-32 lg:px-8 xl:px-20">
+            <div className="w-full relative h-auto lg:h-96 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between mb-32 lg:px-8 xl:px-20">
     {/* Left Content: Heading, Paragraph, Buttons */}
     <div className="flex flex-col max-w-[560px] w-full p-2">
         <h1 className="heading text-[44px] sm:text-6xl font-semibold leading-16 sm:leading-[84px] sm:tracking-[1.44px] text-[#2F303B] uppercase mb-3.5 text-center">
