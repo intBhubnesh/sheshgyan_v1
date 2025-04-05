@@ -183,17 +183,17 @@ const Compition = () => {
                     </div>
 
                 </div>
-                <div className='w-full bg-[#FFDDA3] z-0 relative rounded-[32px] md:rounded-[40px] md:p-10 p-5'>
+                <div className='w-full bg-[#FFDDA3] overflow-hidden z-0 relative rounded-[32px] md:rounded-[40px] md:p-10 p-4'>
                     <div className="absolute inset-0 flex items-center justify-center -z-10">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1101" height="1625" viewBox="0 0 1101 1625" fill="none">
                             <path d="M435.501 1C446.001 70.1667 696.808 135 896.808 177C1146.81 229.5 1190.81 463 874.308 521.5C557.808 580 601.808 293.5 201.808 407.5C-198.192 521.5 32.2084 811.951 653.998 847.5C1152.5 876 874.309 1258 237.308 1170.5C12.4199 1139.61 -158.499 1665.5 461.001 1619" stroke="#FF6200" stroke-opacity="0.6" strokeWidth="5" stroke-dasharray="24 16" />
                         </svg>
                     </div>
-                    <div className='z-10 flex flex-col md:gap-24 gap-18'>
+                    <div className='z-10 flex flex-col gap-32 md:gap-24'>
                         {
                             compitions.map((compition, index) => (
-                                <div className={`flex ${index % 2 === 0 ? '' : 'flex-row-reverse md:flex-row-reverse'}flex-col-reverse gap-4 md:flex-row items-center justify-between`}>
-                                    <div className='inline-flex flex-col justify-between gap-4 p-3 bg-white md:p-5 md:flex-row item-center rounded-3xl'
+                                <div className={`flex ${index % 2 === 0 ? 'flex-col-reverse md:flex-row' : ' flex-col-reverse md:flex-row-reverse '} gap-4  items-center justify-between`}>
+                                    <div className='inline-flex flex-col justify-between gap-4 p-2 bg-white md:p-5 md:flex-row item-center rounded-3xl'
                                         style={{ boxShadow: "12px 12px 0px 0px #1F1F1F" }}
                                     >
                                         <div className='inline-flex items-center justify-center border-2 border-black/30 rounded-2xl'>
@@ -206,7 +206,7 @@ const Compition = () => {
                                                 priority // Optimizes for faster loading
                                             />
                                         </div>
-                                        <div className='flex flex-col gap-3 justify-center max-w-[400px] p-4'>
+                                        <div className='flex flex-col gap-3 justify-center max-w-[400px] p-2'>
                                             <div className='inline-flex flex-col items-start justify-center gap-1'>
                                                 <h1 className='heading  text-[#FF6200] uppercase  text-3xl '>{compition.header}</h1>
 

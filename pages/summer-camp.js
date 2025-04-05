@@ -7,11 +7,10 @@ import testimonials from './data/testimonials'
 import Form from '../components/_App/Form'
 import Sectionheading from '../components/_App/Sectionheading'
 import Footer from '@/components/_App/Foot'
-import index from './admin/coupons'
+
+
 const SummerCamp = () => {
-
-
-
+    
     const achivements = [{
         img: '/achivement_1.svg',
         heading: 'National Coding Championship',
